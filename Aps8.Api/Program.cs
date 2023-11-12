@@ -1,17 +1,21 @@
+using Aps8.Api.Configurations;
 using Microsoft.OpenApi.Models;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 var services = builder.Services;
+
+services.ConfigureServices(builder.Configuration);
 
 services.AddControllers();
 services.AddEndpointsApiExplorer();
 services.AddSwaggerGen(options =>
 {
-    options.SwaggerDoc("qualidade-ar", new OpenApiInfo
+    options.SwaggerDoc("cidades", new OpenApiInfo
     {
-        Title = "Qualidade",
-        Description = "Breve descrição dos endpoints desta controller.",
-        Version = "qualidade-ar"
+        Title = "Cidades",
+        Description = "Controller de Cidades.",
+        Version = "cidades"
     });
 });
 
@@ -22,7 +26,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI(options =>
     {
-        options.SwaggerEndpoint($"/swagger/qualidade-ar/swagger.json", "qualidade-ar");
+        options.SwaggerEndpoint($"/swagger/cidades/swagger.json", "cidades");
     });
 }
 
