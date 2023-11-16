@@ -7,6 +7,17 @@ var services = builder.Services;
 
 services.ConfigureServices(builder.Configuration);
 
+services.AddCors(options =>
+{
+    options.AddPolicy("MyAllowedOrigins",
+        policy =>
+        {
+            policy.WithOrigins("*")
+                .AllowAnyHeader()
+                .AllowAnyMethod();
+        });
+});
+
 services.AddControllers();
 services.AddEndpointsApiExplorer();
 services.AddSwaggerGen(options =>
@@ -20,6 +31,8 @@ services.AddSwaggerGen(options =>
 });
 
 var app = builder.Build();
+
+app.UseCors("MyAllowedOrigins");
 
 if (app.Environment.IsDevelopment())
 {
